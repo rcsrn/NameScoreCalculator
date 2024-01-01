@@ -32,9 +32,6 @@ public class ScoreCalculator {
 	}
     }
 
-    
-    
-    
     private static String fetchDataFromWebService(String urlString) {
 	String response = "";
 	
