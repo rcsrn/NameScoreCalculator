@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
+import com.fasterxml.jackson.databind.JsonNode;
 
 public class ScoreCalculator {
 
@@ -14,7 +15,10 @@ public class ScoreCalculator {
     
     public static void main(String[] args) {
 	String data = fetchDataFromWebService(URL);
-	System.out.printf("This is the response: %s \n", data);	
+
+	Parser parser = new Parser();
+	parser.setString(data);
+	JsonNode json = parser.getJsonFromString();
     }
 
     private static String readFromInput(InputStream in) throws IOException {
