@@ -31,14 +31,15 @@ public class ScoreCalculator {
 	    throw ioe;
 	}
     }
-    
-    
-    private static String fetchDataFromWebService(String urlString {
-	URL url = new URL(urlString + "?archivo=first_names&extension=txt");
 
+    
+    
+    
+    private static String fetchDataFromWebService(String urlString) {
 	String response = "";
 	
 	try {
+	    URL url = new URL(urlString + "?archivo=first_names&extension=txt");
 	    
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    connection.setRequestMethod("GET");
