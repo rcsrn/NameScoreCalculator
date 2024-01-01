@@ -14,54 +14,52 @@ public class ScoreCalculator {
 	    String data = fetchDataFromWebService(URL);
 	    System.out.printf("This is the response: %s \n", data);
 	} catch (Exception e) {
-	    System.out.println("Error occurred:");
-	    e.printStackTrace();
 	    System.out.println("Error Message: " + e.getMessage());
 	}
     }
 
     private static String fetchDataFromWebService(String urlString) throws Exception {
 	URL url = new URL(urlString + "?archivo=first_names&extension=txt");
-    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	
+	// Set request method to GET
+	connection.setRequestMethod("GET");
+	
+	// Set Bearer token for authentication
+	connection.setRequestProperty("Authorization", "Bearer " + BEARER_TOKEN);
 
-    // Set request method to GET
-    connection.setRequestMethod("GET");
+	// Get the response code
+	int responseCode = connection.getResponseCode();
 
-    // Set Bearer token for authentication
-    connection.setRequestProperty("Authorization", "Bearer " + BEARER_TOKEN);
+	if (responseCode == HttpURLConnection.HTTP_OK) {
+	    // If the response code is OK, read the data from the input stream
+	    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+	    StringBuilder response = new StringBuilder();
+	    String line;
 
-    // Get the response code
-    int responseCode = connection.getResponseCode();
+	    while ((line = reader.readLine()) != null) {
+		response.append(line);
+	    }
 
-    if (responseCode == HttpURLConnection.HTTP_OK) {
-        // If the response code is OK, read the data from the input stream
-        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        StringBuilder response = new StringBuilder();
-        String line;
+	    reader.close();
+	    return response.toString();
+	} else {
+	    System.out.println("Failed to fetch data. Response Code: " + responseCode);
 
-        while ((line = reader.readLine()) != null) {
-            response.append(line);
-        }
+	    // Print the response body for further analysis
+	    BufferedReader errorReader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+	    StringBuilder errorResponse = new StringBuilder();
+	    String errorLine;
 
-        reader.close();
-        return response.toString();
-    } else {
-        System.out.println("Failed to fetch data. Response Code: " + responseCode);
+	    while ((errorLine = errorReader.readLine()) != null) {
+		errorResponse.append(errorLine);
+	    }
 
-        // Print the response body for further analysis
-        BufferedReader errorReader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
-        StringBuilder errorResponse = new StringBuilder();
-        String errorLine;
+	    errorReader.close();
+	    System.out.println("Error Response: " + errorResponse.toString());
 
-        while ((errorLine = errorReader.readLine()) != null) {
-            errorResponse.append(errorLine);
-        }
-
-        errorReader.close();
-        System.out.println("Error Response: " + errorResponse.toString());
-
-        throw new RuntimeException("Failed to fetch data from the web service. Response Code: " + responseCode);
-    }
+	    throw new RuntimeException("Failed to fetch data from the web service. Response Code: " + responseCode);
+	}
 
         
     }
