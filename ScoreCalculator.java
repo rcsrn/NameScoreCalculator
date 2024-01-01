@@ -17,22 +17,21 @@ public class ScoreCalculator {
 	    System.out.println("Error Message: " + e.getMessage());
 	}
     }
-
+    
+    
     private static String fetchDataFromWebService(String urlString) throws Exception {
 	URL url = new URL(urlString + "?archivo=first_names&extension=txt");
 	HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	
-	// Set request method to GET
 	connection.setRequestMethod("GET");
 	
-	// Set Bearer token for authentication
+	//authentication
 	connection.setRequestProperty("Authorization", "Bearer " + BEARER_TOKEN);
-
-	// Get the response code
+	
 	int responseCode = connection.getResponseCode();
 
 	if (responseCode == HttpURLConnection.HTTP_OK) {
-	    // If the response code is OK, read the data from the input stream
+	    
 	    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 	    StringBuilder response = new StringBuilder();
 	    String line;
@@ -43,10 +42,11 @@ public class ScoreCalculator {
 
 	    reader.close();
 	    return response.toString();
+	    
 	} else {
+	    
 	    System.out.println("Failed to fetch data. Response Code: " + responseCode);
 
-	    // Print the response body for further analysis
 	    BufferedReader errorReader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
 	    StringBuilder errorResponse = new StringBuilder();
 	    String errorLine;
