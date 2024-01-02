@@ -18,14 +18,20 @@ public class Calculator {
 	    }
 	}
 
+	System.out.println("UNSORTED LIST: ------------------------");
+	System.out.println(name_list.toString());
+	System.out.println("------------- ------------------------");    
+	
 	name_list.sort(new Comparator<String>() {
 		@Override public int compare(String s1, String s2) {
 		    Collator collator = Collator.getInstance();
-		    return 1;
+		    return collator.compare(s1, s2);
 		}
 	    });
 
-	
+	System.out.println("SORTED LIST: ------------------------");
+	System.out.println(name_list.toString());
+	System.out.println("------------- ------------------------");    
     }
 
     public int getTotalScore() {
