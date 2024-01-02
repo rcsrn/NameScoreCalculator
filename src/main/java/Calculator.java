@@ -28,6 +28,7 @@ public class Calculator {
 		}
 	    });
 
+	// Alphabet is created.
 	int value = 1;
 	for (char ch = 'A'; ch <= 'Z'; ch++) {
 	    alphabet.put(ch, value);
@@ -49,6 +50,16 @@ public class Calculator {
     }
     
     private int getAlphabeticalValue(String name) {
-	return 1;
+	char[] chars = name.toCharArray();	
+	int alphabetical_value = 0;
+	
+	for (int i = 1; i < chars.length - 1; i++) {
+	    if (chars[i] == '\"')
+		continue;
+	    
+	    alphabetical_value += alphabet.get(chars[i]);
+	}
+	
+	return alphabetical_value;
     }
 }
