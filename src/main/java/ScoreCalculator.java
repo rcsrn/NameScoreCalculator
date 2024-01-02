@@ -11,6 +11,7 @@ public class ScoreCalculator {
 
     private static final String URL = "https://elastic.snaplogic.com/api/1/rest/slsched/feed/Partners/AllDatum/Entrevista_Integracion/LeeArchivoNombresTask";
     private static final String BEARER_TOKEN = "h8JLQvfj5Yl1iQeOvBT43d17RoDBO6UQ";
+    private static  HttpURLConnection connection;
     
     public static void main(String[] args) {
 	String data = fetchDataFromWebService(URL);
@@ -49,7 +50,7 @@ public class ScoreCalculator {
 	try {
 	    URL url = new URL(urlString + "?archivo=first_names&extension=txt");
 	    
-	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	    connection = (HttpURLConnection) url.openConnection();
 	    connection.setRequestMethod("GET");
 	    
 	    //authentication
