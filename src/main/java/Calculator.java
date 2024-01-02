@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class Calculator {
     
     private ArrayList<String> name_list;
-    private int total_score;
+    private int totalScore ;
 
     public Calculator(JsonNode input) {
 	this.name_list = new ArrayList<String>();
@@ -18,9 +18,10 @@ public class Calculator {
 	    }
 	}
 
-	System.out.println("UNSORTED LIST: ------------------------");
-	System.out.println(name_list.toString());
-	System.out.println("------------- ------------------------");    
+	// System.out.println("UNSORTED LIST: ------------------------");
+	// System.out.println(name_list.toString());
+	// System.out.println("------------- ------------------------");  
+	
 	
 	name_list.sort(new Comparator<String>() {
 		@Override public int compare(String s1, String s2) {
@@ -29,15 +30,26 @@ public class Calculator {
 		}
 	    });
 
-	System.out.println("SORTED LIST: ------------------------");
-	System.out.println(name_list.toString());
-	System.out.println("------------- ------------------------");    
+	// System.out.println("SORTED LIST: ------------------------");
+	// System.out.println(name_list.toString());
+	// System.out.println("------------- ------------------------");    
     }
 
     public int getTotalScore() {
-	return 1;
+	if (totalScore != 0)
+	    return totalScore;
+
+	for (String name : name_list) {
+	    int alphabetical_value = getAlphabeticalValue(name);
+	    int alphabetical_position = name_list.indexOf(name) + 1;
+	    totalScore += alphabetical_value * alphabetical_position;
+	}
+
+	return totalScore;
     }
     
-    
+    public int getAlphabeticalValue(String name) {
+	return 1;
+    }
     
 }
