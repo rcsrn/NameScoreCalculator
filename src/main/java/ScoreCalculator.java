@@ -16,7 +16,7 @@ public class ScoreCalculator {
     public static void main(String[] args) {
 	String data = fetchDataFromWebService(URL);
 
-	Parser parser = new Parser();
+	JsonHandler parser = new JsonHandler();
 	parser.setString(data);
 	JsonNode json = parser.getJsonFromString();
 	
