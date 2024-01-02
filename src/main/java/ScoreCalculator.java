@@ -19,6 +19,13 @@ public class ScoreCalculator {
 	Parser parser = new Parser();
 	parser.setString(data);
 	JsonNode json = parser.getJsonFromString();
+	
+	Calculator calculator = new Calculator(json);
+
+	int totalNameScore = calculator.getTotalScore();
+	
+	System.out.printf("This is the result %s\n", totalNameScore);
+	
     }
 
     private static String readFromInput(InputStream in) throws IOException {
