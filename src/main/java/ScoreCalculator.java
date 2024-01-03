@@ -39,9 +39,8 @@ public class ScoreCalculator {
 	    while ((line = reader.readLine()) != null) {
 		response.append(line);
 	    }
-
-	    return response.toString();
 	    
+	    return response.toString();
 	} catch (IOException ioe) {
 	    throw ioe;
 	}
@@ -56,7 +55,6 @@ public class ScoreCalculator {
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    connection.setRequestMethod("GET");
 	    
-	    //authentication
 	    connection.setRequestProperty("Authorization", "Bearer " + SOURCE_TOKEN);
 	    
 	    int responseCode = connection.getResponseCode();
@@ -65,11 +63,12 @@ public class ScoreCalculator {
 		response = readFromInput(connection.getInputStream());
 	    else response = readFromInput(connection.getErrorStream());	    
 
+	    connection.disconnect();
 	} catch (IOException ioe) {
 	    System.out.println("It is not possible to establish a connection to server.");
 	    System.exit(1);
 	}
-
+	
 	return response;
     }
 
@@ -97,10 +96,12 @@ public class ScoreCalculator {
 	    } else {
 		System.out.println("Failed to send result");
 	    }
+
+	    connection.disconnect();	    
 	} catch (IOException ioe) {
 	    System.out.println("It is not possible to establish a connection to server.");
 	    System.exit(1);
-	} 
+	}
     }
 
 }
