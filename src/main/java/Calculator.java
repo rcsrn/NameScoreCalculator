@@ -8,7 +8,7 @@ public class Calculator {
     
     private ArrayList<String> name_list;
     private HashMap<Character, Integer> alphabet;
-    private int totalScore ;
+    private int totalScore;
 
     public Calculator(JsonNode input) {
 	this.name_list = new ArrayList<String>();
@@ -34,12 +34,10 @@ public class Calculator {
 	    alphabet.put(ch, value);
 	    value++;
 	}
+	System.out.println(alphabet);
     }
 
     public int getTotalScore() {
-	if (totalScore != 0)
-	    return totalScore;
-
 	for (String name : name_list) {
 	    int alphabetical_value = getAlphabeticalValue(name);
 	    int alphabetical_position = name_list.indexOf(name) + 1;
@@ -52,13 +50,21 @@ public class Calculator {
     private int getAlphabeticalValue(String name) {
 	char[] chars = name.toCharArray();	
 	int alphabetical_value = 0;
+
+	System.out.printf("-------------------------------------------");
+	System.out.printf("Nombre: %s\n", name);
 	
 	for (int i = 1; i < chars.length - 1; i++) {
 	    if (chars[i] == '\"')
 		continue;
 	    
+	    System.out.printf("Letra: %s -> Valor: %s\n", chars[i],  alphabet.get(chars[i]));
+	    
 	    alphabetical_value += alphabet.get(chars[i]);
 	}
+
+	System.out.printf("Valor alfabetico: %s\n", alphabetical_value);
+	System.out.printf("-------------------------------------------");
 	
 	return alphabetical_value;
     }
