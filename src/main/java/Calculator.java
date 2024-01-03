@@ -39,9 +39,23 @@ public class Calculator {
 
     public int getTotalScore() {
 	for (String name : name_list) {
+	    
+	    System.out.printf("-------------------------------------------");
+	    System.out.printf("Nombre: %s\n", name);
+	
 	    int alphabetical_value = getAlphabeticalValue(name);
+	    
+	    System.out.printf("Alphabetical value: %s\n", alphabetical_value);
+	    
 	    int alphabetical_position = name_list.indexOf(name) + 1;
+	    System.out.printf("Position: %s\n", alphabetical_position);
+	    
 	    totalScore += alphabetical_value * alphabetical_position;
+
+	    System.out.printf("score: %s\n",  alphabetical_value * alphabetical_position);
+	    System.out.printf("total score: %s\n", totalScore);
+
+	    System.out.printf("-------------------------------------------");
 	}
 
 	return totalScore;
@@ -56,15 +70,9 @@ public class Calculator {
 	
 	for (int i = 1; i < chars.length - 1; i++) {
 	    if (chars[i] == '\"')
-		continue;
-	    
-	    System.out.printf("Letra: %s -> Valor: %s\n", chars[i],  alphabet.get(chars[i]));
-	    
+		continue;	    
 	    alphabetical_value += alphabet.get(chars[i]);
 	}
-
-	System.out.printf("Valor alfabetico: %s\n", alphabetical_value);
-	System.out.printf("-------------------------------------------");
 	
 	return alphabetical_value;
     }

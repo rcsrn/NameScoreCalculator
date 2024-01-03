@@ -28,6 +28,8 @@ public class ScoreCalculator {
 	
 	System.out.printf("This is the result %s\n", totalNameScore);
 
+	System.out.printf("Numero de nombres %s\n", json.size());
+	
 	// sendResultToWebService(totalNameScore);
     }
 
