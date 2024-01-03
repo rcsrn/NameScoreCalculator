@@ -27,10 +27,8 @@ public class ScoreCalculator {
 	int totalNameScore = calculator.getTotalScore();
 	
 	System.out.printf("This is the result %s\n", totalNameScore);
-
-	System.out.printf("Numero de nombres %s\n", json.size());
 	
-	// sendResultToWebService(totalNameScore);
+	sendResultToWebService(totalNameScore);
     }
 
     private static String readFromInput(InputStream in) throws IOException {
@@ -77,33 +75,32 @@ public class ScoreCalculator {
 
     private static void sendResultToWebService(int result) {
 	try {
-	    URL url = new URL(TARGET_URL);
-	    // HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-	    // connection.setRequestMethod("POST");
-	    // connection.setRequestProperty("Content-Type", "application/json");
-            // connection.setRequestProperty("Authorization", "Bearer " + TARGET_TOKEN);
-            // connection.setDoOutput(true);
+	    URL url = new URL(TARGET_URL + "?archivo=first_names&extension=txt&nombre=RodrigoCasarin&prueba=1");
+	    HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+	    connection.setRequestMethod("POST");
+	    connection.setRequestProperty("Content-Type", "application/json");
+            connection.setRequestProperty("Authorization", "Bearer " + TARGET_TOKEN);
+            connection.setDoOutput(true);
 
-	    // JsonHandler handler = new JsonHandler();
-	    // String json = handler.getJsonPayload(result);
+	    JsonHandler handler = new JsonHandler();
+	    String json = handler.getJsonPayload(result);
 
-	    // try (OutputStream out = connection.getOutputStream()) {
-	    // 	byte[] input = json.getBytes("utf-8");
-	    // 	out.write(input, 0, input.length);
-	    // }
+	    try (OutputStream out = connection.getOutputStream()) {
+		byte[] input = json.getBytes("utf-8");
+		out.write(input, 0, input.length);
+	    }
 	    
-	    // int responseCode = connection.getResponseCode();
+	    int responseCode = connection.getResponseCode();
 	    
-	    // if (responseCode == HttpURLConnection.HTTP_OK) {
-	    // 	System.out.println("Result successfully sent to the server.");
-	    // } else {
-	    // 	System.out.println("Failed to send result. Response code: " + responseCode);
-	    // }
-	    
+	    if (responseCode == HttpURLConnection.HTTP_OK) {
+		System.out.println("Result successfully sent to the server.");
+	    } else {
+		System.out.println("Failed to send result");
+	    }
 	} catch (IOException ioe) {
 	    System.out.println("It is not possible to establish a connection to server.");
 	    System.exit(1);
-	}
+	} 
     }
 
 }

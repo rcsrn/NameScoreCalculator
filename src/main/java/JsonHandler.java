@@ -23,6 +23,6 @@ public class JsonHandler {
     }
     
     public String getJsonPayload(int result) {
-	return String.format("{\"ResultadoObtenido\": %d, \"archivo\": \"first_names\", \"extension\": \"txt\", \"nombre\": \"Rodrigo Casarin\", \"prueba\": 1}", result);
+	return String.format("{\"ResultadoObtenido\": %d}", result);
     }
 }
