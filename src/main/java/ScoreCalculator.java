@@ -9,12 +9,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public class ScoreCalculator {
 
-    private static final String URL = "https://elastic.snaplogic.com/api/1/rest/slsched/feed/Partners/AllDatum/Entrevista_Integracion/LeeArchivoNombresTask";
-    private static final String BEARER_TOKEN = "h8JLQvfj5Yl1iQeOvBT43d17RoDBO6UQ";
+    private static final String SOURCE_URL = "https://elastic.snaplogic.com/api/1/rest/slsched/feed/Partners/AllDatum/Entrevista_Integracion/LeeArchivoNombresTask";
+    private static final String TARGET_URL = "https://elastic.snaplogic.com/api/1/rest/slsched/feed/Partners/AllDatum/Entrevista_Integracion/VerificaResultadoEjercicioTecnico1ALLDATUMTask";
+    private static final String SOURCE_TOKEN = "h8JLQvfj5Yl1iQeOvBT43d17RoDBO6UQ";
+    private static final String TARGET_TOKEN = "giqJWNuzhOnDTYaa1Diy1jw7FQhqZSwl";
     private static  HttpURLConnection connection;
     
     public static void main(String[] args) {
-	String data = fetchDataFromWebService(URL);
+	String data = fetchDataFromWebService(SOURCE_URL);
 
 	JsonHandler parser = new JsonHandler();
 	parser.setString(data);
@@ -24,8 +26,7 @@ public class ScoreCalculator {
 
 	int totalNameScore = calculator.getTotalScore();
 	
-	System.out.printf("This is the result %s\n", totalNameScore);
-	
+	System.out.printf("This is the result %s\n", totalNameScore);	
     }
 
     private static String readFromInput(InputStream in) throws IOException {
@@ -54,7 +55,7 @@ public class ScoreCalculator {
 	    connection.setRequestMethod("GET");
 	    
 	    //authentication
-	    connection.setRequestProperty("Authorization", "Bearer " + BEARER_TOKEN);
+	    connection.setRequestProperty("Authorization", "Bearer " + SOURCE_TOKEN);
 	    
 	    int responseCode = connection.getResponseCode();
 	    
@@ -68,6 +69,10 @@ public class ScoreCalculator {
 	}
 
 	return response;
+    }
+
+    private static void sendResultToWebService(int result) {
+	
     }
 
 }
