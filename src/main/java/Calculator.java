@@ -37,11 +37,14 @@ public class Calculator {
     }
 
     public int getTotalScore() {
+	//The index of the names in the list.
+	int index = 1;
+	
 	for (String name : name_list) {
 	    
-	    int alphabetical_value = getAlphabeticalValue(name);	    
-	    int alphabetical_position = name_list.indexOf(name) + 1;
-	    totalScore += alphabetical_value * alphabetical_position;
+	    int alphabeticalValue = getAlphabeticalValue(name);	    
+	    int alphabeticalPosition = index++;
+	    totalScore += alphabeticalValue * alphabeticalPosition;
 	}
 
 	return totalScore;
