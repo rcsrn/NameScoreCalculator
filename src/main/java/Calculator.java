@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.text.Collator;
 import com.fasterxml.jackson.databind.JsonNode;
 
+/**
+ * Class to calculate name scores.
+ * @author Rodrigo Casarin
+ */
 public class Calculator {
     
     private ArrayList<String> name_list;
@@ -35,7 +39,10 @@ public class Calculator {
 	    value++;
 	}
     }
-
+    
+    /**
+     * Calculates the total score from the list of names.
+     */
     public int getTotalScore() {
 	//The index of the names in the list.
 	int index = 1;
@@ -49,7 +56,10 @@ public class Calculator {
 
 	return totalScore;
     }
-    
+        
+    /**
+     * Calculates the alphabetical value for the received name.
+     */
     private int getAlphabeticalValue(String name) {
 	char[] chars = name.toCharArray();	
 	int alphabetical_value = 0;

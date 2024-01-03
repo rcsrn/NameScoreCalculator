@@ -8,13 +8,22 @@ import java.net.URL;
 import java.util.Arrays;
 import com.fasterxml.jackson.databind.JsonNode;
 
+/**
+ * Class designed to retrieve names from a web service and
+ * subsequently send the calculated name score to the target service.
+ * @author Rodrigo Casarin
+ */
 public class ScoreCalculator {
 
+    //This is not a good practice but I added it here for simplicity.
     private static final String SOURCE_URL = "https://elastic.snaplogic.com/api/1/rest/slsched/feed/Partners/AllDatum/Entrevista_Integracion/LeeArchivoNombresTask";
     private static final String TARGET_URL = "https://elastic.snaplogic.com/api/1/rest/slsched/feed/Partners/AllDatum/Entrevista_Integracion/VerificaResultadoEjercicioTecnico1ALLDATUMTask";
     private static final String SOURCE_TOKEN = "h8JLQvfj5Yl1iQeOvBT43d17RoDBO6UQ";
     private static final String TARGET_TOKEN = "giqJWNuzhOnDTYaa1Diy1jw7FQhqZSwl";
-    
+
+    /**
+     * Main method for the program to calculate the total name score.
+     */
     public static void main(String[] args) {
 	String data = fetchDataFromWebService();
 
@@ -30,6 +39,9 @@ public class ScoreCalculator {
 	sendResultToWebService(totalNameScore);
     }
 
+    /**
+     * Reads the received input from the web service.
+     */
     private static String readFromInput(InputStream in) throws IOException {
 	try (BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
 	    StringBuilder response = new StringBuilder();
@@ -45,6 +57,9 @@ public class ScoreCalculator {
 	}
     }
 
+    /**
+     * Obtains the data to be processed from the service using an HTTP connection.
+     */
     private static String fetchDataFromWebService() {
 	String response = "";
 	
@@ -71,6 +86,9 @@ public class ScoreCalculator {
 	return response;
     }
 
+    /**
+     * Sends the calculated result to the target service using an HTTP connection.
+     */
     private static void sendResultToWebService(int result) {
 	try {
 	    URL url = new URL(TARGET_URL + "?archivo=first_names&extension=txt&nombre=RodrigoCasarin&prueba=1");
