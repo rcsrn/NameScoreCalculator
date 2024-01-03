@@ -27,7 +27,6 @@ public class ScoreCalculator {
 	int totalNameScore = calculator.getTotalScore();
 	
 	System.out.printf("This is the result %s\n", totalNameScore);
-	
 	sendResultToWebService(totalNameScore);
     }
 
