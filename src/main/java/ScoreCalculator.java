@@ -16,7 +16,7 @@ public class ScoreCalculator {
     private static final String TARGET_TOKEN = "giqJWNuzhOnDTYaa1Diy1jw7FQhqZSwl";
     
     public static void main(String[] args) {
-	String data = fetchDataFromWebService(SOURCE_URL);
+	String data = fetchDataFromWebService();
 
 	JsonHandler handler = new JsonHandler();
 	handler.setString(data);
@@ -45,11 +45,11 @@ public class ScoreCalculator {
 	}
     }
 
-    private static String fetchDataFromWebService(String urlString) {
+    private static String fetchDataFromWebService() {
 	String response = "";
 	
 	try {
-	    URL url = new URL(urlString + "?archivo=first_names&extension=txt");
+	    URL url = new URL(SOURCE_URL + "?archivo=first_names&extension=txt");
 	    
 	    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 	    connection.setRequestMethod("GET");
